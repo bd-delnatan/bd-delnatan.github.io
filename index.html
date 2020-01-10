@@ -6,18 +6,24 @@
 
   <style>
     .maincontainer {
-      background-color: lightblue;
+      background-color: #b0c4d1;
       position: fixed;
       top: 50%;
       left: 50%;
-      width: 300px;
-      height: 250px;
-      margin-top: -125px; /* half of height */
-      margin-left: -150px; /* half of width */
-      border: 2px solid black;
-
+      width: 60%;
+      height: 50%;
+      margin-top: -25%; /* half of height */
+      margin-left: -30%; /* half of width */
+      border: 4px solid black;
+      border-radius: 25px;
+      font-size: 2em;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
+    .inputform {
+      font-size: 1em;
+      width: 6em;
+    }
   </style>
   <script>
 
@@ -132,25 +138,26 @@
 
   <body>
     <div class="maincontainer">
-      <div align="right">
-        Molecular weight, g/mol <input type="number" step="any" id="MolecularWeight", size=10, pattern="[0-9]+.[0-9]+"> <p>
-        Mass <input type="number" step="any" id="Mass" size=10>
-          <select style="width:50px;" id="massunit">
+      <div align="right" style="padding: 2%">
+        <p>
+        Molecular weight, g/mol <input class="inputform" type="number" step="any" id="MolecularWeight", pattern="[0-9]+.[0-9]+"> <p>
+        Mass <input class="inputform" type="number" step="any" id="Mass">
+          <select style="width:5em;" id="massunit">
             <option value="gram" selected> g </option>
             <option value="milligram"> mg </option>
             <option value="microgram"> &#xb5g </option>
             <option value="nanogram"> ng </option>
           </select>
         <p>
-        Volume <input type="number" step="any" id="Volume" size=10>
-          <select style="width:50px;" id="volunit">
+        Volume <input class="inputform" type="number" step="any" id="Volume">
+          <select style="width:5em;" id="volunit">
             <option value="liter"> l </option>
             <option value="milliliter" selected> ml </option>
             <option value="microliter"> &#xb5l </option>
           </select>
           <p>
-        Concentration <input type="number" step="any" id="Concentration" size=10>
-            <select style="width:50px;" id="concunit">
+        Concentration <input class="inputform" type="number" step="any" id="Concentration">
+            <select style="width:5em;" id="concunit">
             <option value="Molar"> M </option>
             <option value="millimolar" selected> mM </option>
             <option value="micromolar"> &#xb5M </option>
