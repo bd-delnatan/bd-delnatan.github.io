@@ -1,172 +1,23 @@
+<html>
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <title>A simple molecular weight calculator</title>
-
-  <style>
-    .maincontainer {
-      background-color: #b0c4d1;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      width: 60%;
-      height: 50%;
-      margin-top: -25%; /* half of height */
-      margin-left: -30%; /* half of width */
-      border: 4px solid black;
-      border-radius: 25px;
-      font-size: 2em;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    .inputform {
-      font-size: 1em;
-      width: 6em;
-    }
-  </style>
-  <script>
-
-    function check_form() {
-      // this function returns the index of the
-      let mw = document.getElementById("MolecularWeight");
-      let mass = document.getElementById("Mass");
-      let vol = document.getElementById("Volume");
-      let conc = document.getElementById("Concentration");
-
-      let valarr = [mw.value, mass.value, vol.value, conc.value];
-
-      let poscode = 0;
-      let vals = new Array();
-
-      // Use binary coding to check if one form is empty
-      for (i=0; i<4; i++) {
-        if (valarr[i]=="") {
-          poscode += 10**(3 - i);
-        } else {
-          // append non-empty index
-          vals.push(valarr[i]);
-        }
-      }
-
-      // convert binary code
-      let codedec = parseInt(1111 - poscode, 2);
-      let ret_id = false;
-
-      switch (codedec) {
-        case 14:
-          ret_id = 3;
-          break;
-        case 13:
-          ret_id = 2;
-          break;
-        case 11:
-          ret_id = 1;
-          break;
-        case 7:
-          ret_id = 0;
-          break;
-        default:
-          alert("There should only be one empty form.");
-          ret_id = false;
-      }
-
-      // convert all quantities into SI units for computation
-      return ret_id;
-
-    }
-
-    function do_calculation(id) {
-
-      let massfact = {"gram": 1, "milligram": 1e-3, "microgram": 1e-6, "nanogram": 1e-9};
-      let volfact = {"liter": 1, "milliliter": 1e-3, "microliter": 1e-6};
-      let concfact = {"Molar": 1, "millimolar": 1e-3, "micromolar": 1e-6, "nanomolar": 1e-9, "picomolar": 1e-12};
-      let mass_unit = document.getElementById("massunit").value;
-      let vol_unit = document.getElementById("volunit").value;
-      let conc_unit = document.getElementById("concunit").value;
-
-      // convert quantities to SI unit
-      let MW = document.getElementById("MolecularWeight").value;
-      let massSI = document.getElementById("Mass").value * massfact[mass_unit];
-      let volSI = document.getElementById("Volume").value * volfact[vol_unit];
-      let concSI = document.getElementById("Concentration").value * concfact[conc_unit];
-      let ret = false;
-
-      switch (id) {
-        case 0:
-          // compute molecular weight
-          let ret_mw = massSI / (concSI * volSI);
-          ret = ret_mw;
-          document.getElementById("MolecularWeight").value = ret.toFixed(3);
-          break;
-
-        case 1:
-          // compute mass
-          let ret_mass = MW * concSI * volSI;
-          ret = ret_mass / massfact[mass_unit];
-          document.getElementById("Mass").value = ret.toFixed(3);
-          break;
-
-        case 2:
-          // compute volume
-          let res_vol = massSI / (concSI * MW);
-          ret = res_vol / volfact[vol_unit];
-          document.getElementById("Volume").value = ret.toFixed(3);
-          break;
-
-        case 3:
-          // compute concentration
-          let res_conc = massSI / (MW * volSI);
-          ret = res_conc / concfact[conc_unit];
-          document.getElementById("Concentration").value = ret.toFixed(3);
-          break;
-
-        default:
-          console.log("No calculation was done.")
-      }
-
-    }
-
-    function button_callback() {
-      let calcID = check_form();
-      do_calculation(calcID);
-
-    }
-
-  </script>
-  </head>
-
-  <body>
-    <div class="maincontainer">
-      <div align="right" style="padding: 2%">
-        <p>
-        Molecular weight, g/mol <input class="inputform" type="number" step="any" id="MolecularWeight", pattern="[0-9]+.[0-9]+"> <p>
-        Mass <input class="inputform" type="number" step="any" id="Mass">
-          <select style="width:5em;" id="massunit">
-            <option value="gram" selected> g </option>
-            <option value="milligram"> mg </option>
-            <option value="microgram"> &#xb5g </option>
-            <option value="nanogram"> ng </option>
-          </select>
-        <p>
-        Volume <input class="inputform" type="number" step="any" id="Volume">
-          <select style="width:5em;" id="volunit">
-            <option value="liter"> l </option>
-            <option value="milliliter" selected> ml </option>
-            <option value="microliter"> &#xb5l </option>
-          </select>
-          <p>
-        Concentration <input class="inputform" type="number" step="any" id="Concentration">
-            <select style="width:5em;" id="concunit">
-            <option value="Molar"> M </option>
-            <option value="millimolar" selected> mM </option>
-            <option value="micromolar"> &#xb5M </option>
-            <option value="nanomolar"> nM </option>
-            <option value="picomolar"> pM </option>
-          </select> <p>
-        <button type="button" onclick="javascript:button_callback();"> Calculate </button>
-      </div>
-    </div>
-  </body>
-
+<!--[if IE 8]> <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if IE 9]> <html class="no-js ie9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Daniel's home page @ Github (Biodesy, Inc.)</title>
+<!-- [if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif] -->
+</head>
+<body>
+<p> Welcome to Daniel's web portal. I'm hosting a few tools that I wrote here:</p>
+<main class="main-container">
+    <p><a href="easyAMPSdoc.html">easyAMPS guide</a>
+    <p><a href="mwcalc.html">Molecular weight calculator</a>
+    <p><a href="protparam.html">"ProtParam"</a>
+</main>
+</body>
 </html>
